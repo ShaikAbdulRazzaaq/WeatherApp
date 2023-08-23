@@ -5,13 +5,13 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(private val apiService: ApiService) {
     suspend fun getGeoCodingResponse(
-        cityName: String, appID: String
-    ) = apiService.getGeoCodingApiResponse(cityName, appID)
+        cityName: String
+    ) = apiService.getGeoCodingApiResponse(cityName)
 
     suspend fun getCurrentWeatherResponse(
-        lat: Double, lon: Double, appID: String
-    ) = apiService.getCurrentWeather(latitude = lat, longitude = lon, appID)
+        lat: Double, lon: Double
+    ) = apiService.getCurrentWeather(latitude = lat, longitude = lon)
 
-    suspend fun getForecastWeatherResponse(lat: Double, lon: Double, appID: String) =
-        apiService.getForeCastData(lat, lon, appID)
+    suspend fun getForecastWeatherResponse(lat: Double, lon: Double) =
+        apiService.getForeCastData(lat, lon)
 }

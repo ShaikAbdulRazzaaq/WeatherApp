@@ -3,7 +3,7 @@ package com.razzaaq.weatherApp.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.razzaaq.weatherApp.Constants
+import com.razzaaq.weatherApp.Utils
 import com.razzaaq.weatherApp.data.remote.ApiService
 import com.razzaaq.weatherApp.data.remote.helper.NetworkResultCallAdapterFactory
 import dagger.Module
@@ -50,11 +50,12 @@ object NetworkModule {
         gson: Gson,
         client: OkHttpClient,
         networkResultCallAdapterFactory: NetworkResultCallAdapterFactory
-    ): Retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
+    ): Retrofit = Retrofit.Builder().baseUrl(Utils.BASE_URL)
         .addCallAdapterFactory(networkResultCallAdapterFactory)
         .addConverterFactory(GsonConverterFactory.create(gson)).client(client).build()
 
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
 }

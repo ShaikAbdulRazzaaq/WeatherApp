@@ -2,4 +2,5 @@
 <resources>
     <string name="enter_location">أدخل المدينة</string>
     <string name="app_name">تطبيق الطقس</string>
+    <string name="internet_connection">يرجى التحقق من الاتصال بالإنترنت</string>
 </resources>
