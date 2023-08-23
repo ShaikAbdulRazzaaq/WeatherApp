@@ -1,0 +1,169 @@
+package com.razzaaq.weatherApp.data.bean
+
+
+import com.google.gson.annotations.SerializedName
+
+class GeoCodingApiResponse : ArrayList<GeoCodingApiResponse.GeoCodingApiResponseItem>() {
+    data class GeoCodingApiResponseItem(
+        @SerializedName("name") val name: String?, // London
+        @SerializedName("local_names") val localNames: LocalNames?,
+        @SerializedName("lat") val lat: Double?, // 51.5073219
+        @SerializedName("lon") val lon: Double?, // -0.1276474
+        @SerializedName("country") val country: String?, // GB
+        @SerializedName("state") val state: String? // England
+    ) {
+        data class LocalNames(
+            @SerializedName("ms") val ms: String?, // London
+            @SerializedName("gu") val gu: String?, // લંડન
+            @SerializedName("is") val isX: String?, // London
+            @SerializedName("wa") val wa: String?, // Londe
+            @SerializedName("mg") val mg: String?, // Lôndôna
+            @SerializedName("gl") val gl: String?, // Londres
+            @SerializedName("om") val om: String?, // Landan
+            @SerializedName("ku") val ku: String?, // London
+            @SerializedName("tw") val tw: String?, // London
+            @SerializedName("mk") val mk: String?, // Лондон
+            @SerializedName("ee") val ee: String?, // London
+            @SerializedName("fj") val fj: String?, // Lodoni
+            @SerializedName("gd") val gd: String?, // Lunnainn
+            @SerializedName("ky") val ky: String?, // Лондон
+            @SerializedName("yo") val yo: String?, // Lọndọnu
+            @SerializedName("zu") val zu: String?, // ILondon
+            @SerializedName("bg") val bg: String?, // Лондон
+            @SerializedName("tk") val tk: String?, // London
+            @SerializedName("co") val co: String?, // Londra
+            @SerializedName("sh") val sh: String?, // London
+            @SerializedName("de") val de: String?, // London
+            @SerializedName("kl") val kl: String?, // London
+            @SerializedName("bi") val bi: String?, // London
+            @SerializedName("km") val km: String?, // ឡុងដ៍
+            @SerializedName("lt") val lt: String?, // Londonas
+            @SerializedName("fi") val fi: String?, // Lontoo
+            @SerializedName("fy") val fy: String?, // Londen
+            @SerializedName("ba") val ba: String?, // Лондон
+            @SerializedName("sc") val sc: String?, // Londra
+            @SerializedName("feature_name") val featureName: String?, // London
+            @SerializedName("ja") val ja: String?, // ロンドン
+            @SerializedName("am") val am: String?, // ለንደን
+            @SerializedName("sk") val sk: String?, // Londýn
+            @SerializedName("mr") val mr: String?, // लंडन
+            @SerializedName("es") val es: String?, // Londres
+            @SerializedName("sq") val sq: String?, // Londra
+            @SerializedName("te") val te: String?, // లండన్
+            @SerializedName("br") val br: String?, // Londrez
+            @SerializedName("uz") val uz: String?, // London
+            @SerializedName("da") val da: String?, // London
+            @SerializedName("sw") val sw: String?, // London
+            @SerializedName("fa") val fa: String?, // لندن
+            @SerializedName("sr") val sr: String?, // Лондон
+            @SerializedName("cu") val cu: String?, // Лондонъ
+            @SerializedName("ln") val ln: String?, // Lóndɛlɛ
+            @SerializedName("na") val na: String?, // London
+            @SerializedName("wo") val wo: String?, // Londar
+            @SerializedName("ig") val ig: String?, // London
+            @SerializedName("to") val to: String?, // Lonitoni
+            @SerializedName("ta") val ta: String?, // இலண்டன்
+            @SerializedName("mt") val mt: String?, // Londra
+            @SerializedName("ar") val ar: String?, // لندن
+            @SerializedName("su") val su: String?, // London
+            @SerializedName("ab") val ab: String?, // Лондон
+            @SerializedName("ps") val ps: String?, // لندن
+            @SerializedName("bm") val bm: String?, // London
+            @SerializedName("mi") val mi: String?, // Rānana
+            @SerializedName("kn") val kn: String?, // ಲಂಡನ್
+            @SerializedName("kv") val kv: String?, // Лондон
+            @SerializedName("os") val os: String?, // Лондон
+            @SerializedName("bn") val bn: String?, // লন্ডন
+            @SerializedName("li") val li: String?, // Londe
+            @SerializedName("vi") val vi: String?, // Luân Đôn
+            @SerializedName("zh") val zh: String?, // 伦敦
+            @SerializedName("eo") val eo: String?, // Londono
+            @SerializedName("ha") val ha: String?, // Landan
+            @SerializedName("tt") val tt: String?, // Лондон
+            @SerializedName("lb") val lb: String?, // London
+            @SerializedName("ce") val ce: String?, // Лондон
+            @SerializedName("hu") val hu: String?, // London
+            @SerializedName("it") val it: String?, // Londra
+            @SerializedName("tl") val tl: String?, // Londres
+            @SerializedName("pl") val pl: String?, // Londyn
+            @SerializedName("sm") val sm: String?, // Lonetona
+            @SerializedName("en") val en: String?, // London
+            @SerializedName("vo") val vo: String?, // London
+            @SerializedName("el") val el: String?, // Λονδίνο
+            @SerializedName("sn") val sn: String?, // London
+            @SerializedName("fr") val fr: String?, // Londres
+            @SerializedName("cs") val cs: String?, // Londýn
+            @SerializedName("io") val io: String?, // London
+            @SerializedName("hi") val hi: String?, // लंदन
+            @SerializedName("et") val et: String?, // London
+            @SerializedName("pa") val pa: String?, // ਲੰਡਨ
+            @SerializedName("av") val av: String?, // Лондон
+            @SerializedName("ko") val ko: String?, // 런던
+            @SerializedName("bh") val bh: String?, // लंदन
+            @SerializedName("yi") val yi: String?, // לאנדאן
+            @SerializedName("sa") val sa: String?, // लन्डन्
+            @SerializedName("sl") val sl: String?, // London
+            @SerializedName("hr") val hr: String?, // London
+            @SerializedName("si") val si: String?, // ලන්ඩන්
+            @SerializedName("so") val so: String?, // London
+            @SerializedName("gn") val gn: String?, // Lóndyre
+            @SerializedName("ay") val ay: String?, // London
+            @SerializedName("se") val se: String?, // London
+            @SerializedName("sd") val sd: String?, // لنڊن
+            @SerializedName("af") val af: String?, // Londen
+            @SerializedName("ga") val ga: String?, // Londain
+            @SerializedName("or") val or: String?, // ଲଣ୍ଡନ
+            @SerializedName("ia") val ia: String?, // London
+            @SerializedName("ie") val ie: String?, // London
+            @SerializedName("ug") val ug: String?, // لوندۇن
+            @SerializedName("nl") val nl: String?, // Londen
+            @SerializedName("gv") val gv: String?, // Lunnin
+            @SerializedName("qu") val qu: String?, // London
+            @SerializedName("be") val be: String?, // Лондан
+            @SerializedName("an") val an: String?, // Londres
+            @SerializedName("fo") val fo: String?, // London
+            @SerializedName("hy") val hy: String?, // Լոնդոն
+            @SerializedName("nv") val nv: String?, // Tooh Dineʼé Bikin Haalʼá
+            @SerializedName("bo") val bo: String?, // ལོན་ཊོན།
+            @SerializedName("ascii") val ascii: String?, // London
+            @SerializedName("id") val id: String?, // London
+            @SerializedName("lv") val lv: String?, // Londona
+            @SerializedName("ca") val ca: String?, // Londres
+            @SerializedName("no") val no: String?, // London
+            @SerializedName("nn") val nn: String?, // London
+            @SerializedName("ml") val ml: String?, // ലണ്ടൻ
+            @SerializedName("my") val my: String?, // လန်ဒန်မြို့
+            @SerializedName("ne") val ne: String?, // लन्डन
+            @SerializedName("he") val he: String?, // לונדון
+            @SerializedName("cy") val cy: String?, // Llundain
+            @SerializedName("lo") val lo: String?, // ລອນດອນ
+            @SerializedName("jv") val jv: String?, // London
+            @SerializedName("sv") val sv: String?, // London
+            @SerializedName("mn") val mn: String?, // Лондон
+            @SerializedName("tg") val tg: String?, // Лондон
+            @SerializedName("kw") val kw: String?, // Loundres
+            @SerializedName("cv") val cv: String?, // Лондон
+            @SerializedName("az") val az: String?, // London
+            @SerializedName("oc") val oc: String?, // Londres
+            @SerializedName("th") val th: String?, // ลอนดอน
+            @SerializedName("ru") val ru: String?, // Лондон
+            @SerializedName("ny") val ny: String?, // London
+            @SerializedName("bs") val bs: String?, // London
+            @SerializedName("st") val st: String?, // London
+            @SerializedName("ro") val ro: String?, // Londra
+            @SerializedName("rm") val rm: String?, // Londra
+            @SerializedName("ff") val ff: String?, // London
+            @SerializedName("kk") val kk: String?, // Лондон
+            @SerializedName("uk") val uk: String?, // Лондон
+            @SerializedName("pt") val pt: String?, // Londres
+            @SerializedName("tr") val tr: String?, // Londra
+            @SerializedName("eu") val eu: String?, // Londres
+            @SerializedName("ht") val ht: String?, // Lonn
+            @SerializedName("ka") val ka: String?, // ლონდონი
+            @SerializedName("ur") val ur: String?, // علاقہ لندن
+            @SerializedName("oj") val oj: String?, // Baketigweyaang
+            @SerializedName("cr") val cr: String?, // ᓬᐊᐣᑕᐣ
+            @SerializedName("iu") val iu: String? // ᓚᓐᑕᓐ
+        )
+    }
+}

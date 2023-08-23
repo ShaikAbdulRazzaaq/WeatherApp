@@ -1,7 +1,8 @@
-package com.razzaaq.weatherApp
+package com.razzaaq.weatherApp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.razzaaq.weatherApp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
