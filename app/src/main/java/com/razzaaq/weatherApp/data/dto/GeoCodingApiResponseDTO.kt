@@ -3,7 +3,7 @@ package com.razzaaq.weatherApp.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-class GeoCodingApiResponse : ArrayList<GeoCodingApiResponse.GeoCodingApiResponseItem>() {
+class GeoCodingApiResponseDTO : ArrayList<GeoCodingApiResponseDTO.GeoCodingApiResponseItem>() {
     data class GeoCodingApiResponseItem(
         @SerializedName("name") val name: String?, // London
         @SerializedName("local_names") val localNames: LocalNames?,

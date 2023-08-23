@@ -3,7 +3,7 @@ package com.razzaaq.weatherApp.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CurrentWeatherApiResponse(
+data class CurrentWeatherApiResponseDTO(
     @SerializedName("coord") val coord: Coord?,
     @SerializedName("weather") val weather: List<Weather?>?,
     @SerializedName("base") val base: String?, // stations
