@@ -1,4 +1,4 @@
-package com.razzaaq.weatherApp.data.bean
+package com.razzaaq.weatherApp.data.dto
 
 
 import com.google.gson.annotations.SerializedName

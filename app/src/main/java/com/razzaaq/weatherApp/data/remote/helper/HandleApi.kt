@@ -2,7 +2,7 @@ package com.razzaaq.weatherApp.data.remote.helper
 
 import android.util.Log
 import com.google.gson.Gson
-import com.razzaaq.weatherApp.data.bean.ErrorBody
+import com.razzaaq.weatherApp.data.dto.ErrorBody
 import retrofit2.Response
 import java.net.ConnectException
 import java.net.UnknownHostException
