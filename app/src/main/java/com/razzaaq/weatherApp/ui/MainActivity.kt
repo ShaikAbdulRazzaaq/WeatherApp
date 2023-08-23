@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.razzaaq.weatherApp.R
+import com.razzaaq.weatherApp.WeatherApp
 import com.razzaaq.weatherApp.data.dto.CurrentWeatherApiResponseDTO
 import com.razzaaq.weatherApp.data.remote.helper.onError
 import com.razzaaq.weatherApp.data.remote.helper.onException
@@ -19,6 +20,7 @@ import com.razzaaq.weatherApp.data.remote.helper.onSuccess
 import com.razzaaq.weatherApp.databinding.ActivityMainBinding
 import com.razzaaq.weatherApp.ui.adapter.ForeCastWeatherRecycler
 import com.razzaaq.weatherApp.ui.viewModels.WeatherViewModel
+import com.razzaaq.weatherApp.utils.LocaleManager
 import com.razzaaq.weatherApp.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -32,10 +34,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val weatherViewModel: WeatherViewModel by viewModels()
     private val foreCastAdapter = ForeCastWeatherRecycler()
+    private lateinit var currentLanguage: String
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        currentLanguage = WeatherApp.localeManager.language.toString()
+        if (currentLanguage.equals(LocaleManager.LANGUAGE_ENGLISH)) {
+            binding.btnLangEng.isChecked = true
+        } else binding.btnLangArabic.isChecked = true
 
         hideWeatherCards()
 
@@ -75,10 +82,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                             if (item.lat != null && item.lon != null) {
                                 binding.progressLoader.isVisible = true
                                 weatherViewModel.getCurrentWeatherResponse(
-                                    item.lat, item.lon, "EN"
+                                    item.lat, item.lon, currentLanguage
                                 )
                                 weatherViewModel.getWeatherForecastResponse(
-                                    item.lat, item.lon, "EN"
+                                    item.lat, item.lon, currentLanguage
                                 )
                             }
                         }
@@ -166,10 +173,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun setUpLocaleButtons() {
         binding.btnLangArabic.setOnClickListener {
-
+            if (currentLanguage == LocaleManager.LANGUAGE_ENGLISH) {
+                WeatherApp.localeManager.setNewLocale(this, LocaleManager.LANGUAGE_ARAB)
+                recreate()
+            }
         }
         binding.btnLangEng.setOnClickListener {
-
+            if (currentLanguage == LocaleManager.LANGUAGE_ARAB) {
+                WeatherApp.localeManager.setNewLocale(this, LocaleManager.LANGUAGE_ENGLISH)
+                recreate()
+            }
         }
     }
 
@@ -183,7 +196,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
         binding.tvTime.text = currentWeatherApiResponseDTO.dt?.let {
             SimpleDateFormat(
-                "dd MMM yyyy HH:mm", Locale(ArabicLang)
+                "dd MMM yyyy HH:mm", Locale(currentLanguage)
             ).format(Date(it * 1000))
         }
         binding.tvTemperature.text = buildString {
@@ -221,7 +234,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val EnglishLang = "EN"
-        private const val ArabicLang = "AR"
     }
 }
