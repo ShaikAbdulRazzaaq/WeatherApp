@@ -3,9 +3,9 @@
     <string name="enter_location">أدخل المدينة</string>
     <string name="app_name">تطبيق الطقس</string>
     <string name="internet_connection">يرجى التحقق من الاتصال بالإنترنت</string>
-    <string name="feels_like_">%1$dCيشعر وكأنه</string>
-    <string name="wind">الرياح: %1$f م/ث</string>
-    <string name="humidity">%1$f%%:الرطوبة</string>
-    <string name="pressure">f$1%:باسكال</string>
-    <string name="visibility">الرؤية: %d$1 م</string>
+    <string name="feels_like_">الإحساس كأنه %1$d°C</string>
+    <string name="wind">الرياح: %1\$.2f م/ث</string>
+    <string name="humidity">الرطوبة: %1$d%%</string>
+    <string name="pressure">الضغط: %1$d هـ.ب </string>
+    <string name="visibility">الرؤية: %1\$d كم</string>
 </resources>

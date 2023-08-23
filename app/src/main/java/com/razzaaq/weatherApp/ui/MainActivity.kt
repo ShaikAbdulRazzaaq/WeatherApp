@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.razzaaq.weatherApp.R
+import com.razzaaq.weatherApp.Utils
 import com.razzaaq.weatherApp.data.remote.helper.onError
 import com.razzaaq.weatherApp.data.remote.helper.onException
 import com.razzaaq.weatherApp.data.remote.helper.onLoading
@@ -115,17 +117,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         binding.tvTime.text = currentWeatherApiResponseDTO.dt?.let {
                             SimpleDateFormat(
                                 "dd MMM yyyy HH:mm", Locale.getDefault()
-                            ).format(it)
+                            ).format(it * 1000)
                         }
-                        binding.tvTemperature.text =
-                            currentWeatherApiResponseDTO.main?.temp?.toString()
-                        binding.tvWind.text = currentWeatherApiResponseDTO.wind?.speed?.toString()
-                        binding.tvPressure.text =
-                            currentWeatherApiResponseDTO.main?.pressure?.toString()
-                        binding.tvFeelsLike.text =
-                            currentWeatherApiResponseDTO.main?.feelsLike?.toString()
-                        binding.tvVisibility.text =
-                            currentWeatherApiResponseDTO.visibility?.toString()
+                        binding.tvTemperature.text = buildString {
+                            append(currentWeatherApiResponseDTO.main?.temp?.toInt())
+                            append("°C")
+                        }
+                        binding.tvWind.text = getString(
+                            R.string.wind, currentWeatherApiResponseDTO.wind?.speed
+                        )
+                        binding.tvPressure.text = getString(
+                            R.string.pressure, currentWeatherApiResponseDTO.main?.pressure
+                        )
+                        binding.tvFeelsLike.text = getString(
+                            R.string.feels_like_,
+                            currentWeatherApiResponseDTO.main?.feelsLike?.toInt()
+                        )
+
+                        binding.tvVisibility.text = getString(
+                            R.string.visibility, currentWeatherApiResponseDTO.visibility?.div(1000)
+                        )
+                        val link = currentWeatherApiResponseDTO.weather?.firstOrNull()?.icon?.let {
+                            Utils.returnImageUrlFromCode(
+                                it
+                            )
+                        }
+                        link?.let {
+                            binding.ivIcon.load(link)
+                        }
                         Log.d(
                             TAG,
                             "onCreate:Current Weather Api Response $currentWeatherApiResponseDTO"
