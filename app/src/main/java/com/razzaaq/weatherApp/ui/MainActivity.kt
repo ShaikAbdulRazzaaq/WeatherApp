@@ -7,31 +7,43 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.razzaaq.weatherApp.R
 import com.razzaaq.weatherApp.Utils
+import com.razzaaq.weatherApp.data.dto.CurrentWeatherApiResponseDTO
 import com.razzaaq.weatherApp.data.remote.helper.onError
 import com.razzaaq.weatherApp.data.remote.helper.onException
 import com.razzaaq.weatherApp.data.remote.helper.onLoading
 import com.razzaaq.weatherApp.data.remote.helper.onSuccess
 import com.razzaaq.weatherApp.databinding.ActivityMainBinding
+import com.razzaaq.weatherApp.ui.adapter.ForeCastWeatherRecycler
 import com.razzaaq.weatherApp.ui.viewModels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val weatherViewModel: WeatherViewModel by viewModels()
+    private val foreCastAdapter = ForeCastWeatherRecycler()
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         hideWeatherCards()
+
+        binding.rvForecastList.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.HORIZONTAL, false)
+            adapter = foreCastAdapter
+        }
 
         binding.etLocation.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -41,6 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     weatherViewModel.getGeoCodingResponse(v.text.toString())
                     binding.progressLoader.isVisible = true
                 }
+                v.clearFocus()
                 return@setOnEditorActionListener true
             }
             v.clearFocus()
@@ -107,44 +120,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         ).show()
                     }
                     onSuccess { currentWeatherApiResponseDTO ->
-                        binding.progressLoader.isVisible = false
-                        binding.currentCard.isVisible = true
-                        binding.tvDescription.text =
-                            currentWeatherApiResponseDTO.weather?.firstOrNull()?.description
-                        binding.tvHumidity.text = getString(
-                            R.string.humidity, currentWeatherApiResponseDTO.main?.humidity
-                        )
-                        binding.tvTime.text = currentWeatherApiResponseDTO.dt?.let {
-                            SimpleDateFormat(
-                                "dd MMM yyyy HH:mm", Locale.getDefault()
-                            ).format(it * 1000)
-                        }
-                        binding.tvTemperature.text = buildString {
-                            append(currentWeatherApiResponseDTO.main?.temp?.toInt())
-                            append("°C")
-                        }
-                        binding.tvWind.text = getString(
-                            R.string.wind, currentWeatherApiResponseDTO.wind?.speed
-                        )
-                        binding.tvPressure.text = getString(
-                            R.string.pressure, currentWeatherApiResponseDTO.main?.pressure
-                        )
-                        binding.tvFeelsLike.text = getString(
-                            R.string.feels_like_,
-                            currentWeatherApiResponseDTO.main?.feelsLike?.toInt()
-                        )
-
-                        binding.tvVisibility.text = getString(
-                            R.string.visibility, currentWeatherApiResponseDTO.visibility?.div(1000)
-                        )
-                        val link = currentWeatherApiResponseDTO.weather?.firstOrNull()?.icon?.let {
-                            Utils.returnImageUrlFromCode(
-                                it
-                            )
-                        }
-                        link?.let {
-                            binding.ivIcon.load(link)
-                        }
+                        setViewsFromData(currentWeatherApiResponseDTO)
                         Log.d(
                             TAG,
                             "onCreate:Current Weather Api Response $currentWeatherApiResponseDTO"
@@ -177,12 +153,53 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         binding.progressLoader.isVisible = false
                         binding.rvForecastList.isVisible = true
                         Log.d(TAG, "onCreate:Forecast Weather Api Response $it")
+                        foreCastAdapter.differ.submitList(it.list)
                     }
                 }
             }
 
         }
 
+    }
+
+    private fun setViewsFromData(currentWeatherApiResponseDTO: CurrentWeatherApiResponseDTO) {
+        binding.progressLoader.isVisible = false
+        binding.currentCard.isVisible = true
+        binding.tvDescription.text =
+            currentWeatherApiResponseDTO.weather?.firstOrNull()?.description
+        binding.tvHumidity.text = getString(
+            R.string.humidity, currentWeatherApiResponseDTO.main?.humidity
+        )
+        binding.tvTime.text = currentWeatherApiResponseDTO.dt?.let {
+            SimpleDateFormat(
+                "dd MMM yyyy HH:mm", Locale.getDefault()
+            ).format(Date(it * 1000))
+        }
+        binding.tvTemperature.text = buildString {
+            append(currentWeatherApiResponseDTO.main?.temp?.toInt())
+            append("°C")
+        }
+        binding.tvWind.text = getString(
+            R.string.wind, currentWeatherApiResponseDTO.wind?.speed
+        )
+        binding.tvPressure.text = getString(
+            R.string.pressure, currentWeatherApiResponseDTO.main?.pressure
+        )
+        binding.tvFeelsLike.text = getString(
+            R.string.feels_like_, currentWeatherApiResponseDTO.main?.feelsLike?.toInt()
+        )
+
+        binding.tvVisibility.text = getString(
+            R.string.visibility, currentWeatherApiResponseDTO.visibility?.div(1000)
+        )
+        val link = currentWeatherApiResponseDTO.weather?.firstOrNull()?.icon?.let {
+            Utils.returnImageUrlFromCode(
+                it
+            )
+        }
+        link?.let {
+            binding.ivIcon.load(link)
+        }
     }
 
     private fun hideWeatherCards() {

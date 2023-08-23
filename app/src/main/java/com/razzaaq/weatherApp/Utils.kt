@@ -7,8 +7,4 @@ object Utils {
     fun returnImageUrlFromCode(code: String): String =
         "https://openweathermap.org/img/wn/$code@2x.png"
 
-    fun fahrenheitToCelsius(fahrenheit: Double): Double {
-        return (fahrenheit - 32) * 5 / 9
-    }
-
 }
