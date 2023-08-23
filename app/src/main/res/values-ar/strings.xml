@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_location">أدخل المدينة</string>
+    <string name="app_name">تطبيق الطقس</string>
+</resources>
