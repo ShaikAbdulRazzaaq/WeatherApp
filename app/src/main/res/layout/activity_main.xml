@@ -47,14 +47,14 @@
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EN" />
+                android:text="@string/en" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_lang_arabic"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AR" />
+                android:text="@string/ar" />
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 

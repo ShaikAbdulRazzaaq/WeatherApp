@@ -3,7 +3,7 @@ package com.razzaaq.weatherApp.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.razzaaq.weatherApp.Utils
+import com.razzaaq.weatherApp.utils.Utils
 import com.razzaaq.weatherApp.data.remote.ApiService
 import com.razzaaq.weatherApp.data.remote.helper.NetworkResultCallAdapterFactory
 import dagger.Module

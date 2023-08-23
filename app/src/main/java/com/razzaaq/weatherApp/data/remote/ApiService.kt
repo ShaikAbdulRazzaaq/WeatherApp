@@ -1,6 +1,6 @@
 package com.razzaaq.weatherApp.data.remote
 
-import com.razzaaq.weatherApp.Utils
+import com.razzaaq.weatherApp.utils.Utils
 import com.razzaaq.weatherApp.data.dto.CurrentWeatherApiResponseDTO
 import com.razzaaq.weatherApp.data.dto.GeoCodingApiResponseDTO
 import com.razzaaq.weatherApp.data.dto.GetForecastApiResponseDTO

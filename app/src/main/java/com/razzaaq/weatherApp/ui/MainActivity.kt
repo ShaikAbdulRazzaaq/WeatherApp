@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.razzaaq.weatherApp.R
-import com.razzaaq.weatherApp.Utils
 import com.razzaaq.weatherApp.data.dto.CurrentWeatherApiResponseDTO
 import com.razzaaq.weatherApp.data.remote.helper.onError
 import com.razzaaq.weatherApp.data.remote.helper.onException
@@ -20,6 +19,7 @@ import com.razzaaq.weatherApp.data.remote.helper.onSuccess
 import com.razzaaq.weatherApp.databinding.ActivityMainBinding
 import com.razzaaq.weatherApp.ui.adapter.ForeCastWeatherRecycler
 import com.razzaaq.weatherApp.ui.viewModels.WeatherViewModel
+import com.razzaaq.weatherApp.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +38,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setContentView(binding.root)
 
         hideWeatherCards()
+
+        setUpLocaleButtons()
 
         binding.rvForecastList.apply {
             setHasFixedSize(true)
@@ -162,6 +164,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     }
 
+    private fun setUpLocaleButtons() {
+        binding.btnLangArabic.setOnClickListener {
+
+        }
+        binding.btnLangEng.setOnClickListener {
+
+        }
+    }
+
     private fun setViewsFromData(currentWeatherApiResponseDTO: CurrentWeatherApiResponseDTO) {
         binding.progressLoader.isVisible = false
         binding.currentCard.isVisible = true
@@ -172,7 +183,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
         binding.tvTime.text = currentWeatherApiResponseDTO.dt?.let {
             SimpleDateFormat(
-                "dd MMM yyyy HH:mm", Locale.getDefault()
+                "dd MMM yyyy HH:mm", Locale(ArabicLang)
             ).format(Date(it * 1000))
         }
         binding.tvTemperature.text = buildString {
@@ -210,5 +221,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     companion object {
         private const val TAG = "MainActivity"
+        private const val EnglishLang = "EN"
+        private const val ArabicLang = "AR"
     }
 }

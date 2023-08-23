@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.razzaaq.weatherApp.R
-import com.razzaaq.weatherApp.Utils
+import com.razzaaq.weatherApp.utils.Utils
 import com.razzaaq.weatherApp.data.dto.GetForecastApiResponseDTO
 import com.razzaaq.weatherApp.databinding.ItemWeatherBinding
 import java.text.SimpleDateFormat
