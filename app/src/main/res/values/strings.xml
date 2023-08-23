@@ -3,4 +3,9 @@
     <string name="app_name">WeatherApp</string>
     <string name="API_KEY" translatable="false">fdd399e166e30d7c78ff287c74adc9f1</string>
     <string name="internet_connection">Please Check Internet Connection</string>
+    <string name="feels_like_">Feels Like %1$dC</string>
+    <string name="wind">Wind: %1$f m/s</string>
+    <string name="humidity">Humidity: %1$d%%</string>
+    <string name="pressure">Pressure: %1$fhPa </string>
+    <string name="visibility">Visibility: %1$d m</string>
 </resources>

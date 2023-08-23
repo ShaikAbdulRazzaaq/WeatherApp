@@ -9,9 +9,9 @@ class WeatherRepository @Inject constructor(private val apiService: ApiService) 
     ) = apiService.getGeoCodingApiResponse(cityName)
 
     suspend fun getCurrentWeatherResponse(
-        lat: Double, lon: Double
-    ) = apiService.getCurrentWeather(latitude = lat, longitude = lon)
+        lat: Double, lon: Double, lang: String
+    ) = apiService.getCurrentWeather(latitude = lat, longitude = lon, language = lang)
 
-    suspend fun getForecastWeatherResponse(lat: Double, lon: Double) =
-        apiService.getForeCastData(lat, lon)
+    suspend fun getForecastWeatherResponse(lat: Double, lon: Double, lang: String) =
+        apiService.getForeCastData(latitude = lat, longitude = lon, language = lang)
 }

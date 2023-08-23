@@ -18,13 +18,17 @@ interface ApiService {
     suspend fun getCurrentWeather(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("appid") appID: String = Utils.API_KEY
+        @Query("appid") appID: String = Utils.API_KEY,
+        @Query("units") unit: String = "metric",
+        @Query("lang") language: String
     ): NetworkResult<CurrentWeatherApiResponseDTO>
 
     @GET("data/2.5/forecast")
     suspend fun getForeCastData(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("appid") appID: String = Utils.API_KEY
+        @Query("appid") appID: String = Utils.API_KEY,
+        @Query("units") unit: String = "metric",
+        @Query("lang") language: String
     ): NetworkResult<GetForecastApiResponseDTO>
 }

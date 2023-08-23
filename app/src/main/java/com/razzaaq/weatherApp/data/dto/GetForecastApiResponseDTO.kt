@@ -10,7 +10,7 @@ data class GetForecastApiResponseDTO(
     @SerializedName("list") val list: List<Items?>?, @SerializedName("city") val city: City?
 ) {
     data class Items(
-        @SerializedName("dt") val dt: Int?, // 1692802800
+        @SerializedName("dt") val dt: Long?, // 1692802800
         @SerializedName("main") val main: Main?,
         @SerializedName("weather") val weather: List<Weather?>?,
         @SerializedName("clouds") val clouds: Clouds?,
@@ -66,8 +66,8 @@ data class GetForecastApiResponseDTO(
         @SerializedName("country") val country: String?, // IN
         @SerializedName("population") val population: Int?, // 2000
         @SerializedName("timezone") val timezone: Int?, // 19800
-        @SerializedName("sunrise") val sunrise: Int?, // 1692751097
-        @SerializedName("sunset") val sunset: Int? // 1692796019
+        @SerializedName("sunrise") val sunrise: Long?, // 1692751097
+        @SerializedName("sunset") val sunset: Long? // 1692796019
     ) {
         data class Coord(
             @SerializedName("lat") val lat: Double?, // 12.9768

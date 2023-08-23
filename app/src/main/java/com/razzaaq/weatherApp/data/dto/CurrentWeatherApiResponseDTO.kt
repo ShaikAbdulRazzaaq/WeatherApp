@@ -12,7 +12,7 @@ data class CurrentWeatherApiResponseDTO(
     @SerializedName("wind") val wind: Wind?,
     @SerializedName("rain") val rain: Rain?,
     @SerializedName("clouds") val clouds: Clouds?,
-    @SerializedName("dt") val dt: Int?, // 1661870592
+    @SerializedName("dt") val dt: Long?, // 1661870592
     @SerializedName("sys") val sys: Sys?,
     @SerializedName("timezone") val timezone: Int?, // 7200
     @SerializedName("id") val id: Int?, // 3163858

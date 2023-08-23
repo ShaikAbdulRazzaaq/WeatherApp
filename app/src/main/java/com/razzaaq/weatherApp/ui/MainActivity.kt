@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.razzaaq.weatherApp.R
 import com.razzaaq.weatherApp.data.remote.helper.onError
 import com.razzaaq.weatherApp.data.remote.helper.onException
 import com.razzaaq.weatherApp.data.remote.helper.onLoading
@@ -15,6 +17,8 @@ import com.razzaaq.weatherApp.ui.viewModels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -25,12 +29,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        hideWeatherCards()
+
         binding.etLocation.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (v.text.isNullOrEmpty()) {
                     Toast.makeText(this, "Please Enter Valid Location", Toast.LENGTH_SHORT).show()
-                } else weatherViewModel.getGeoCodingResponse(v.text.toString())
-                v.clearFocus()
+                } else {
+                    weatherViewModel.getGeoCodingResponse(v.text.toString())
+                    binding.progressLoader.isVisible = true
+                }
                 return@setOnEditorActionListener true
             }
             v.clearFocus()
@@ -44,24 +52,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         Log.d(TAG, "onCreate: GeoCodingLoading")
                     }
                     onSuccess {
+                        binding.progressLoader.isVisible = false
                         Log.d(TAG, "onCreate: $it")
                         it.firstOrNull()?.let { item ->
                             if (item.lat != null && item.lon != null) {
+                                binding.progressLoader.isVisible = true
                                 weatherViewModel.getCurrentWeatherResponse(
-                                    item.lat, item.lon
+                                    item.lat, item.lon, "EN"
                                 )
                                 weatherViewModel.getWeatherForecastResponse(
-                                    item.lat, item.lon
+                                    item.lat, item.lon, "EN"
                                 )
                             }
                         }
                     }
                     onError { code, message ->
+                        binding.progressLoader.isVisible = false
                         Toast.makeText(
                             this@MainActivity, "Error $message, code $code", Toast.LENGTH_SHORT
                         ).show()
                     }
                     onException {
+                        binding.progressLoader.isVisible = false
                         Toast.makeText(
                             this@MainActivity,
                             "Exception ${it.localizedMessage}",
@@ -79,19 +91,45 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         Log.d(TAG, "onCreate: loading Current WeatherData")
                     }
                     onError { code, message ->
+                        binding.progressLoader.isVisible = false
                         Toast.makeText(
                             this@MainActivity, "Error $message, code $code", Toast.LENGTH_SHORT
                         ).show()
                     }
                     onException {
+                        binding.progressLoader.isVisible = false
                         Toast.makeText(
                             this@MainActivity,
                             "Exception ${it.localizedMessage}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                    onSuccess {
-                        Log.d(TAG, "onCreate:Current Weather Api Response $it")
+                    onSuccess { currentWeatherApiResponseDTO ->
+                        binding.progressLoader.isVisible = false
+                        binding.currentCard.isVisible = true
+                        binding.tvDescription.text =
+                            currentWeatherApiResponseDTO.weather?.firstOrNull()?.description
+                        binding.tvHumidity.text = getString(
+                            R.string.humidity, currentWeatherApiResponseDTO.main?.humidity
+                        )
+                        binding.tvTime.text = currentWeatherApiResponseDTO.dt?.let {
+                            SimpleDateFormat(
+                                "dd MMM yyyy HH:mm", Locale.getDefault()
+                            ).format(it)
+                        }
+                        binding.tvTemperature.text =
+                            currentWeatherApiResponseDTO.main?.temp?.toString()
+                        binding.tvWind.text = currentWeatherApiResponseDTO.wind?.speed?.toString()
+                        binding.tvPressure.text =
+                            currentWeatherApiResponseDTO.main?.pressure?.toString()
+                        binding.tvFeelsLike.text =
+                            currentWeatherApiResponseDTO.main?.feelsLike?.toString()
+                        binding.tvVisibility.text =
+                            currentWeatherApiResponseDTO.visibility?.toString()
+                        Log.d(
+                            TAG,
+                            "onCreate:Current Weather Api Response $currentWeatherApiResponseDTO"
+                        )
                     }
                 }
             }
@@ -103,11 +141,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         Log.d(TAG, "onCreate: loading Weather forecast")
                     }
                     onError { code, message ->
+                        binding.progressLoader.isVisible = false
                         Toast.makeText(
                             this@MainActivity, "Error $message, code $code", Toast.LENGTH_SHORT
                         ).show()
                     }
                     onException {
+                        binding.progressLoader.isVisible = false
                         Toast.makeText(
                             this@MainActivity,
                             "Exception ${it.localizedMessage}",
@@ -115,6 +155,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         ).show()
                     }
                     onSuccess {
+                        binding.progressLoader.isVisible = false
+                        binding.rvForecastList.isVisible = true
                         Log.d(TAG, "onCreate:Forecast Weather Api Response $it")
                     }
                 }
@@ -122,6 +164,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         }
 
+    }
+
+    private fun hideWeatherCards() {
+        binding.currentCard.isVisible = false
+        binding.rvForecastList.isVisible = false
     }
 
 

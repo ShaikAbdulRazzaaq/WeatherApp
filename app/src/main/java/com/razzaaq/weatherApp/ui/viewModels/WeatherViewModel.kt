@@ -60,10 +60,10 @@ class WeatherViewModel @Inject constructor(
         )
     }
 
-    fun getCurrentWeatherResponse(lat: Double, lon: Double) =
+    fun getCurrentWeatherResponse(lat: Double, lon: Double, lang: String) =
         viewModelScope.launch(Dispatchers.IO) {
             if (hasInternetConnection()) {
-                val response = repository.getCurrentWeatherResponse(lat, lon)
+                val response = repository.getCurrentWeatherResponse(lat, lon, lang)
                 response.onSuccess {
                     _currentWeatherLiveData.postValue(NetworkResult.ApiSuccess(it))
                 }
@@ -89,10 +89,10 @@ class WeatherViewModel @Inject constructor(
         }
 
 
-    fun getWeatherForecastResponse(lat: Double, lon: Double) =
+    fun getWeatherForecastResponse(lat: Double, lon: Double, lang: String) =
         viewModelScope.launch(Dispatchers.IO) {
             if (hasInternetConnection()) {
-                val response = repository.getForecastWeatherResponse(lat, lon)
+                val response = repository.getForecastWeatherResponse(lat, lon, lang)
                 response.onSuccess {
                     _weatherForecastLiveData.postValue(NetworkResult.ApiSuccess(it))
                 }
