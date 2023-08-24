@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.razzaaq.weatherApp.R
-import com.razzaaq.weatherApp.WeatherApp
 import com.razzaaq.weatherApp.data.dto.CurrentWeatherApiResponseDTO
 import com.razzaaq.weatherApp.data.remote.helper.onError
 import com.razzaaq.weatherApp.data.remote.helper.onException
@@ -21,6 +20,7 @@ import com.razzaaq.weatherApp.databinding.ActivityMainBinding
 import com.razzaaq.weatherApp.ui.adapter.ForeCastWeatherRecycler
 import com.razzaaq.weatherApp.ui.viewModels.WeatherViewModel
 import com.razzaaq.weatherApp.utils.LocaleManager
+import com.razzaaq.weatherApp.utils.Preferences
 import com.razzaaq.weatherApp.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +39,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        currentLanguage = WeatherApp.localeManager.language.toString()
+        currentLanguage =
+            Preferences.getPreference(this, Utils.LANGUAGE, LANGUAGE_ENGLISH).toString()
         if (currentLanguage.equals(LocaleManager.LANGUAGE_ENGLISH)) {
             binding.btnLangEng.isChecked = true
         } else binding.btnLangArabic.isChecked = true
@@ -174,14 +175,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun setUpLocaleButtons() {
         binding.btnLangArabic.setOnClickListener {
             if (currentLanguage == LocaleManager.LANGUAGE_ENGLISH) {
-                WeatherApp.localeManager.setNewLocale(this, LocaleManager.LANGUAGE_ARAB)
-                recreate()
+                updateLocale(Locale(LANGUAGE_ARAB))
+                Preferences.setPreference(this, Utils.LANGUAGE, LANGUAGE_ARAB)
             }
         }
         binding.btnLangEng.setOnClickListener {
             if (currentLanguage == LocaleManager.LANGUAGE_ARAB) {
-                WeatherApp.localeManager.setNewLocale(this, LocaleManager.LANGUAGE_ENGLISH)
-                recreate()
+                updateLocale(Locale(LANGUAGE_ENGLISH))
+                Preferences.setPreference(this, Utils.LANGUAGE, LANGUAGE_ENGLISH)
             }
         }
     }

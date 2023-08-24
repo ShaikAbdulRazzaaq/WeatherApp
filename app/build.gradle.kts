@@ -66,6 +66,9 @@ dependencies {
     // Image Loading library Coil
     implementation("io.coil-kt:coil:2.4.0")
 
+    //LocaleHelper
+    implementation("com.zeugmasolutions.localehelper:locale-helper-android:1.1.4")
+
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
     testImplementation("junit:junit:4.13.2")

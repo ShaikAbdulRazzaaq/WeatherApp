@@ -67,14 +67,12 @@
                 android:id="@+id/tv_wind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/wind" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_humidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/humidity" />
 
             <com.google.android.material.textview.MaterialTextView

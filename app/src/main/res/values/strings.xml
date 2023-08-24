@@ -5,7 +5,7 @@
     <string name="feels_like_">Feels Like %1$d°C</string>
     <string name="wind">Wind: %1$2f. m/s</string>
     <string name="humidity">Humidity: %1$d%%</string>
-    <string name="pressure">Pressure: %1$dhPa </string>
+    <string name="pressure">Pressure: %1$d hPa </string>
     <string name="visibility">Visibility: %1$d km</string>
     <string name="en" translatable="false">EN</string>
     <string name="ar" translatable="false">AR</string>
