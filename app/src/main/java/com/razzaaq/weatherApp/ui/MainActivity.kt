@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,20 +18,18 @@ import com.razzaaq.weatherApp.data.remote.helper.onSuccess
 import com.razzaaq.weatherApp.databinding.ActivityMainBinding
 import com.razzaaq.weatherApp.ui.adapter.ForeCastWeatherRecycler
 import com.razzaaq.weatherApp.ui.viewModels.WeatherViewModel
-import com.razzaaq.weatherApp.utils.LocaleManager
 import com.razzaaq.weatherApp.utils.Preferences
 import com.razzaaq.weatherApp.utils.Utils
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val weatherViewModel: WeatherViewModel by viewModels()
+    private val weatherViewModel: WeatherViewModel by viewModel()
     private val foreCastAdapter = ForeCastWeatherRecycler()
     private lateinit var currentLanguage: String
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setContentView(binding.root)
         currentLanguage =
             Preferences.getPreference(this, Utils.LANGUAGE, LANGUAGE_ENGLISH).toString()
-        if (currentLanguage.equals(LocaleManager.LANGUAGE_ENGLISH)) {
+        if (currentLanguage == LANGUAGE_ENGLISH) {
             binding.btnLangEng.isChecked = true
         } else binding.btnLangArabic.isChecked = true
 
@@ -174,13 +171,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun setUpLocaleButtons() {
         binding.btnLangArabic.setOnClickListener {
-            if (currentLanguage == LocaleManager.LANGUAGE_ENGLISH) {
+            if (currentLanguage == LANGUAGE_ENGLISH) {
                 updateLocale(Locale(LANGUAGE_ARAB))
                 Preferences.setPreference(this, Utils.LANGUAGE, LANGUAGE_ARAB)
             }
         }
         binding.btnLangEng.setOnClickListener {
-            if (currentLanguage == LocaleManager.LANGUAGE_ARAB) {
+            if (currentLanguage == LANGUAGE_ARAB) {
                 updateLocale(Locale(LANGUAGE_ENGLISH))
                 Preferences.setPreference(this, Utils.LANGUAGE, LANGUAGE_ENGLISH)
             }

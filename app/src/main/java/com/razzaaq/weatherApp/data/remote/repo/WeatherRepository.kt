@@ -1,9 +1,8 @@
 package com.razzaaq.weatherApp.data.remote.repo
 
 import com.razzaaq.weatherApp.data.remote.ApiService
-import javax.inject.Inject
 
-class WeatherRepository @Inject constructor(private val apiService: ApiService) {
+class WeatherRepository(private val apiService: ApiService) {
     suspend fun getGeoCodingResponse(
         cityName: String
     ) = apiService.getGeoCodingApiResponse(cityName)
@@ -15,3 +14,4 @@ class WeatherRepository @Inject constructor(private val apiService: ApiService) 
     suspend fun getForecastWeatherResponse(lat: Double, lon: Double, lang: String) =
         apiService.getForeCastData(latitude = lat, longitude = lon, language = lang)
 }
+

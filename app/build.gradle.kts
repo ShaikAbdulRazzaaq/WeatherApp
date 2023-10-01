@@ -3,17 +3,16 @@ plugins {
     id("com.google.devtools.ksp")
     kotlin("android")
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.razzaaq.weatherApp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.razzaaq.weatherApp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -35,16 +34,19 @@ android {
         jvmTarget = "17"
     }
     buildFeatures { viewBinding = true }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.dagger:hilt-android:2.47")
-    kapt("com.google.dagger:hilt-android-compiler:2.47")
+    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation ("io.insert-koin:koin-core:3.5.0")
+    implementation ("io.insert-koin:koin-annotations:1.3.0")
+    ksp ("io.insert-koin:koin-ksp-compiler:1.3.0")
     implementation("androidx.activity:activity-ktx:1.7.2")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -59,15 +61,15 @@ dependencies {
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     // Image Loading library Coil
     implementation("io.coil-kt:coil:2.4.0")
 
     //LocaleHelper
-    implementation("com.zeugmasolutions.localehelper:locale-helper-android:1.1.4")
+    implementation("com.zeugmasolutions.localehelper:locale-helper-android:1.5.1")
 
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
