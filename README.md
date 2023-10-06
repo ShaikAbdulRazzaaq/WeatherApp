@@ -4,11 +4,11 @@ An Android Application for showing Weather data when a location as city is enter
 
 API - https://openweathermap.org/
 
-Archictecture Used - MVVM
+Architecture Used - MVVM
 
 Networking- Retrofit and Gson for converting - https://square.github.io/retrofit/
 
-Di- Dagger-Hilt - https://developer.android.com/training/dependency-injection/hilt-android
+Di- Koin - https://insert-koin.io/docs/quickstart/android/
 
 Image Loading - Coil - https://coil-kt.github.io/coil/
 
